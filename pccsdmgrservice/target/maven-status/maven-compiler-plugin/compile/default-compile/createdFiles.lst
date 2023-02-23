@@ -1,0 +1,16 @@
+com\pccth\jwt\JwtGenerator.class
+com\pccth\pccsdmgrservice\repo\NewsRepo.class
+com\pccth\pccsdmgrservice\model\ApiResponse.class
+com\pccth\pccsdmgrservice\model\RegisterResponse.class
+com\pccth\pccsdmgrservice\pccsdmgrApplication.class
+com\pccth\pccsdmgrservice\exception\UserNotFoundException.class
+com\pccth\pccsdmgrservice\model\Employee.class
+com\pccth\pccsdmgrservice\service\NewsService.class
+com\pccth\pccsdmgrservice\service\EmployeeService.class
+com\pccth\pccsdmgrservice\model\returntoken.class
+com\pccth\pccsdmgrservice\repo\EmployeeRepo.class
+com\pccth\pccsdmgrservice\model\loginform.class
+com\pccth\pccsdmgrservice\resource\FileResource.class
+com\pccth\pccsdmgrservice\resource\EmployeeResource.class
+com\pccth\pccsdmgrservice\model\News.class
+com\pccth\pccsdmgrservice\resource\NewsResource.class
