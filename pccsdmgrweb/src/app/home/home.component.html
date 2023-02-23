@@ -1,0 +1,195 @@
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" style="color:white;"><img src="assets/images/สพก.png" style="height: 80px;"/></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarColor02">
+   <form class="form-inline my-2 my-lg-0">
+      <input type="search" (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel
+       name="key" id="searchName" class="form-control mr-sm-2" placeholder="ค้นหาพนักงาน..." required>
+   </form>
+     <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+           <a class="nav-link" (click)="onOpenModal(null, 'add')">เพิ่มรายชื่อพนักงาน <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+         <a class="nav-link" (click)=" toUploadPage()">ประกาศข่าวสาร <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+         <a class="nav-link" (click)="exportToExcel()">Export XLS <span class="sr-only">(current)</span></a>
+      </li>
+     </ul>
+     <ul class="navbar-nav mr-auto" >
+      <li class="nav-item active">
+        <a class="nav-link">{{getUsername}}&nbsp;&nbsp;</a>
+      </li>
+      <li class="nav-item active">
+         <a class="nav-link btn btn-danger" (click)="logout()">ออกจากระบบ <span class="sr-only">(current)</span></a>
+      </li>
+   </ul>
+  </div>
+</nav>
+
+<div class="container" id="main-container">
+<div class="row">
+  <div *ngFor="let employee of employees" class="col-md-6 col-xl-3">
+     <div class="card m-b-30">
+        <div class="card-body row">
+           <div class="col-6">
+              <a href=""><img src="{{employee?.imageUrl}}" alt="" class="img-fluid rounded-circle w-60"></a>
+           </div>
+           <div class="col-6 card-title align-self-center mb-0">
+              <h5>{{employee?.name}}</h5>
+              <p class="m-0">{{employee?.jobTitle}},{{employee?.department}}</p>
+           </div>
+        </div>
+        <ul class="list-group list-group-flush">
+           <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{employee?.email}}</li>
+           <li class="list-group-item"><i class="fa fa-phone float-right"></i>เบอร์โทรศัพท์ : {{employee?.phone}}</li>
+        </ul>
+        <div class="card-body">
+           <div class="float-right btn-group btn-group-sm">
+              <a (click)="onOpenModal(employee, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+              <a (click)="onOpenModal(employee, 'delete')" class="btn btn-danger" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+
+<!-- Add Employee Modal -->
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+       <div class="modal-header">
+          <h5 class="modal-title" id="addEmployeeModalLabel">เพิ่มรายชื่อพนักงาน</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+       </div>
+       <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="onAddEmloyee(addForm)">
+          <div class="form-group">
+             <label for="name">ชื่อ-นามสกุล</label>
+             <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Name" required>
+          </div>
+          <div class="form-group">
+            <label for="userName">ชื่อไอดีผู้ใช้</label>
+            <input type="text" ngModel name="userName" class="form-control"  placeholder="userName" required>
+         </div>
+         <div class="form-group">
+            <label for="password">รหัสผ่าน</label>
+            <input type="password" ngModel name="password" class="form-control" id="password" placeholder="Password" required>
+         </div>
+          <div class="form-group">
+             <label for="email">Email Address</label>
+             <input type="email" ngModel name="email" class="form-control" id="email" placeholder="Email" required>
+          </div>
+          <div class="form-group">
+             <label for="phone">ตำแหน่ง</label>
+             <input type="text" ngModel name="jobTitle" class="form-control" id="jobTile" placeholder="Job title" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">แผนก</label>
+            <input type="text" ngModel name="department" class="form-control" id="department" placeholder="department" required>
+         </div>
+          <div class="form-group">
+             <label for="phone">เบอร์โทรศัพท์</label>
+             <input type="text" ngModel name="phone" class="form-control" id="phone" placeholder="Phone" required>
+          </div>
+          <div class="form-group">
+             <label for="phone">URL รูปภาพ Profile</label>
+             <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" required>
+          </div>
+          <div class="modal-footer">
+             <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+             <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >บันทึก</button>
+          </div>
+          </form>
+       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="updateEmployeeModalLabel">แก้ไขรายชื่อพนักงาน {{editEmployee?.name}}</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #editForm="ngForm">
+              <div class="form-group">
+                 <label for="name">ชื่อ-นามสกุล</label>
+                 <input type="text" ngModel="{{editEmployee?.name}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
+              </div>
+              <input type="hidden" ngModel="{{editEmployee?.id}}" name="id" class="form-control" id="id" placeholder="Email">
+              <input type="hidden" ngModel="{{editEmployee?.employeeCode}}" name="userCode" class="form-control" id="userCode" placeholder="Email">
+              <input type="hidden" ngModel="{{editEmployee?.userName}}" name="userName" class="form-control" id="userName" placeholder="userName">
+              <input type="hidden" ngModel="{{editEmployee?.password}}" name="password" class="form-control" id="password" placeholder="password">
+              <div class="form-group">
+                 <label for="email">Email Address</label>
+                 <input type="email" ngModel="{{editEmployee?.email}}" name="email" class="form-control" id="email" placeholder="Email">
+              </div>
+              <div class="form-group">
+                 <label for="phone">ตำแหน่ง</label>
+                 <input type="text" ngModel="{{editEmployee?.jobTitle}}" name="jobTitle" class="form-control" id="jobTitle" placeholder="Job title">
+              </div>
+              <div class="form-group">
+               <label for="phone">แผนก</label>
+               <input type="text" ngModel="{{editEmployee?.department}}" name="department" class="form-control" id="department" placeholder="department">
+            </div>
+              <div class="form-group">
+                 <label for="phone">เบอร์โทรศัพท์</label>
+                 <input type="text" ngModel="{{editEmployee?.phone}}" name="phone" class="form-control" id="phone" name="phone" placeholder="Phone">
+              </div>
+              <div class="form-group">
+                 <label for="phone">URL รูปภาพ Profile</label>
+                 <input type="text" ngModel="{{editEmployee?.imageUrl}}" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL">
+              </div>
+              <div class="modal-footer">
+                 <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">ปิด</button>
+                 <button (click)="onUpdateEmloyee(editForm.value)" data-dismiss="modal" class="btn btn-primary" >บันทึก</button>
+              </div>
+           </form>
+        </div>
+     </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="deleteModelLabel">ลบรายชื่อพนักงาน</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <p>คุณต้องการจะลบรายชื่อพนักงานนี้  {{deleteEmployee?.name}} ใช่หรือไม่ ?</p>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+              <button (click)="onDeleteEmloyee(deleteEmployee?.id)" class="btn btn-danger" data-dismiss="modal">ตกลง</button>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+</div>
+
+<!-- Notification for no employees -->
+<div *ngIf="employees?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+<div class="alert alert-info" role="alert">
+  <h4 class="alert-heading">ไม่พบรายชื่่อพนักงาน กรุณา กดปุ่มเพิ่มรายชื่อพนักงาน !</h4>
+  <p>ไม่พบรายชื่่อพนักงาน.</p>
+</div>
+</div>
+
+</body>
