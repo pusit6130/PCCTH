@@ -1,58 +1,96 @@
-<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" style="color:white;"><img src="assets/images/สพก.png" style="height: 80px;"/></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarColor02">
+   <ul class="navbar-nav mr-auto">
    <form class="form-inline my-2 my-lg-0">
-      <input type="search" (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel
-       name="key" id="searchName" class="form-control mr-sm-2" placeholder="ค้นหาพนักงาน..." required>
+       <div class="flex justify-center">
+         <div class="mb-0 xl:w-96">
+            <br>
+           <div class="relative mb-4 flex w-full flex-wrap items-stretch">
+               <input type="search" (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel
+             name="key" id="searchName" class="form-control mr-sm-2 relative m-0 -mr-px block w-[1%] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-clip-padding px-3 py-1.5 text-base font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:text-neutral-200 dark:placeholder:text-neutral-200" 
+             placeholder="ค้นหาพนักงาน..." required>
+           </div>
+         </div>
+       </div>
    </form>
+   </ul>
      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-           <a class="nav-link" (click)="onOpenModal(null, 'add')">เพิ่มรายชื่อพนักงาน <span class="sr-only">(current)</span></a>
+        <li class="nav-item active w-auto">
+           <a class="nav-link">รายชื่อพนักงาน <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item w-auto">
          <a class="nav-link" (click)=" toUploadPage()">ประกาศข่าวสาร <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item active">
-         <a class="nav-link" (click)="exportToExcel()">Export XLS <span class="sr-only">(current)</span></a>
-      </li>
      </ul>
-     <ul class="navbar-nav mr-auto" >
+     <ul class="navbar-nav mr-auto w-auto" >
       <li class="nav-item active">
-        <a class="nav-link">{{getUsername}}&nbsp;&nbsp;</a>
+        <a class="nav-link">คุณ : {{getUsername}}&nbsp;&nbsp;</a>
       </li>
-      <li class="nav-item active">
-         <a class="nav-link btn btn-danger" (click)="logout()">ออกจากระบบ <span class="sr-only">(current)</span></a>
+      &nbsp; &nbsp;
+      <li class="mr-12" align="center w-auto">
+         <button class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-2 rounded-full" (click)="logout()">
+            <img class="w-5 h-5" src="../assets/images/logout.png">
+          </button>
+          &nbsp;
+         <button class="bg-yellow-50 hover:bg-yellow-400 text-white font-bold py-2 px-2 rounded-full" id="themeWebL" value="light" onclick="OnThemeD(themeWebL.value)">
+           <img class="w-5 h-5" src="../assets/images/sun.png">
+         </button>
+         &nbsp;
+         <button class="bg-blue-50 hover:bg-blue-400 text-white font-bold py-2 px-2 rounded-full" id="themeWebD" value="dark" onclick="OnThemeD(themeWebD.value)">
+           <img class="w-5 h-5" src="../assets/images/moon.png">
+         </button>
       </li>
-   </ul>
+      </ul>
+      <br>
+      <br>
   </div>
 </nav>
 
 <div class="container" id="main-container">
+   <div align="">
+      <!-- <button class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded inline-flex items-center" (click)="onOpenModal(null, 'add')">
+         <i class="w-4 h-4 mr-2 text-white fa fa-plus" viewBox="0 0 20 20"></i>
+         <span (click)="onOpenModal(null, 'add')">เพิ่มรายชื่อพนักงาน</span>
+      </button>
+      &nbsp;&nbsp; -->
+      <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded inline-flex items-center" (click)="exportToExcel()">
+         <i class="w-4 h-4 mr-2 text-white fa fa-file-excel-o" viewBox="0 0 20 20"></i>
+         <span (click)="exportToExcel()">Export XLS</span>
+      </button>
+   </div>
+   <br>
 <div class="row">
-  <div *ngFor="let employee of employees" class="col-md-6 col-xl-3">
-     <div class="card m-b-30">
-        <div class="card-body row">
+  <div *ngFor="let employee of employees" class="col-md-6 col-xl-3 ">
+     <div class=" card m-b-30 max-w-sm p-6 rounded-lg shadow dark:bg-gray-700 dark:border-gray-700">
+        <div class="card-body row ">
            <div class="col-6">
               <a href=""><img src="{{employee?.imageUrl}}" alt="" class="img-fluid rounded-circle w-60"></a>
            </div>
            <div class="col-6 card-title align-self-center mb-0">
-              <h5>{{employee?.name}}</h5>
-              <p class="m-0">{{employee?.jobTitle}},{{employee?.department}}</p>
+              <h5 class="dark:text-white">{{employee?.name}}</h5>
            </div>
         </div>
-        <ul class="list-group list-group-flush">
-           <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{employee?.email}}</li>
-           <li class="list-group-item"><i class="fa fa-phone float-right"></i>เบอร์โทรศัพท์ : {{employee?.phone}}</li>
+        <ul class="list-group list-group-flush dark:bg-gray-700">
+         <li class="list-group-item dark:bg-gray-700 dark:text-white"><i class="fa fa-envelope-o text-black dark:text-white"></i> &nbsp;&nbsp;{{employee?.email}}</li>
+         <li class="list-group-item dark:bg-gray-700 dark:text-white"><i class="fa fa-phone text-black dark:text-white"></i> &nbsp;&nbsp;{{employee?.phone}}</li>
         </ul>
-        <div class="card-body">
-           <div class="float-right btn-group btn-group-sm">
-              <a (click)="onOpenModal(employee, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-              <a (click)="onOpenModal(employee, 'delete')" class="btn btn-danger" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
-           </div>
+        <div class="card-body dark:bg-gray-700" align="center">
+         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 dark:bg-gray-500 dark:text-white">ตำเเหน่ง: {{employee?.jobTitle}}</span>
+         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 dark:bg-gray-500 dark:text-white">แผนก: {{employee?.department}}</span>  
+         <br><br>
+         <div class="btn-group btn-group-sm" >
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-12 rounded-full">
+               <a (click)="onOpenModal(employee, 'edit')" class="tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+            </button>
+            &nbsp;&nbsp;
+            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-auto w-24 rounded-full">
+              <a (click)="onOpenModal(employee, 'delete')" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+            </button>
+            </div>
         </div>
      </div>
   </div>
@@ -60,46 +98,46 @@
 
 <!-- Add Employee Modal -->
 <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content dark:bg-gray-700 dark:border-gray-700">
        <div class="modal-header">
-          <h5 class="modal-title" id="addEmployeeModalLabel">เพิ่มรายชื่อพนักงาน</h5>
+          <h5 class="modal-title dark:text-white" id="addEmployeeModalLabel">เพิ่มรายชื่อพนักงาน</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true" class="dark:text-white">&times;</span>
           </button>
        </div>
        <div class="modal-body">
           <form #addForm="ngForm" (ngSubmit)="onAddEmloyee(addForm)">
           <div class="form-group">
-             <label for="name">ชื่อ-นามสกุล</label>
+             <label class="dark:text-white" for="name">ชื่อ-นามสกุล</label>
              <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Name" required>
           </div>
           <div class="form-group">
-            <label for="userName">ชื่อไอดีผู้ใช้</label>
+            <label class="dark:text-white" for="userName">ชื่อไอดีผู้ใช้</label>
             <input type="text" ngModel name="userName" class="form-control"  placeholder="userName" required>
          </div>
          <div class="form-group">
-            <label for="password">รหัสผ่าน</label>
+            <label class="dark:text-white" for="password">รหัสผ่าน</label>
             <input type="password" ngModel name="password" class="form-control" id="password" placeholder="Password" required>
          </div>
           <div class="form-group">
-             <label for="email">Email Address</label>
+             <label class="dark:text-white" for="email">Email Address</label>
              <input type="email" ngModel name="email" class="form-control" id="email" placeholder="Email" required>
           </div>
           <div class="form-group">
-             <label for="phone">ตำแหน่ง</label>
+             <label class="dark:text-white" for="phone">ตำแหน่ง</label>
              <input type="text" ngModel name="jobTitle" class="form-control" id="jobTile" placeholder="Job title" required>
           </div>
           <div class="form-group">
-            <label for="phone">แผนก</label>
+            <label class="dark:text-white" for="phone">แผนก</label>
             <input type="text" ngModel name="department" class="form-control" id="department" placeholder="department" required>
          </div>
           <div class="form-group">
-             <label for="phone">เบอร์โทรศัพท์</label>
+             <label class="dark:text-white" for="phone">เบอร์โทรศัพท์</label>
              <input type="text" ngModel name="phone" class="form-control" id="phone" placeholder="Phone" required>
           </div>
           <div class="form-group">
-             <label for="phone">URL รูปภาพ Profile</label>
+             <label class="dark:text-white" for="phone">URL รูปภาพ Profile</label>
              <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" required>
           </div>
           <div class="modal-footer">
@@ -115,46 +153,67 @@
 <!-- Edit Modal -->
 <div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-     <div class="modal-content">
+     <div class="modal-content dark:bg-gray-700 dark:border-gray-700">
         <div class="modal-header">
-           <h5 class="modal-title" id="updateEmployeeModalLabel">แก้ไขรายชื่อพนักงาน {{editEmployee?.name}}</h5>
+           <h5 class="modal-title dark:text-white" id="updateEmployeeModalLabel">แก้ไขรายชื่อพนักงาน {{editEmployee?.name}}</h5>
            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
+           <span aria-hidden="true" class="dark:text-white">&times;</span>
            </button>
         </div>
         <div class="modal-body">
            <form #editForm="ngForm">
               <div class="form-group">
-                 <label for="name">ชื่อ-นามสกุล</label>
-                 <input type="text" ngModel="{{editEmployee?.name}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
-              </div>
+                 <label for="name" class="dark:text-white">ชื่อ-นามสกุล</label>
+                 <input type="text" ngModel="{{editEmployee?.name}}" required #name ="ngModel" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
+                 <div class="alert-danger" *ngIf="name.invalid">
+                  <div *ngIf="name?.touched && name?.hasError('required')">กรุณากรอก ชื่อ-นามสกุล</div>
+                 </div>
+               </div>
               <input type="hidden" ngModel="{{editEmployee?.id}}" name="id" class="form-control" id="id" placeholder="Email">
               <input type="hidden" ngModel="{{editEmployee?.employeeCode}}" name="userCode" class="form-control" id="userCode" placeholder="Email">
               <input type="hidden" ngModel="{{editEmployee?.userName}}" name="userName" class="form-control" id="userName" placeholder="userName">
               <input type="hidden" ngModel="{{editEmployee?.password}}" name="password" class="form-control" id="password" placeholder="password">
               <div class="form-group">
-                 <label for="email">Email Address</label>
-                 <input type="email" ngModel="{{editEmployee?.email}}" name="email" class="form-control" id="email" placeholder="Email">
-              </div>
+                 <label for="email" class="dark:text-white">Email Address</label>
+                 <input type="email" ngModel="{{editEmployee?.email}}" required #email ="ngModel" name="email" class="form-control" id="email" placeholder="Email"  ngModel email>
+                 <div class="alert-danger" *ngIf="email.invalid">
+                  <div *ngIf="email?.touched && email?.hasError('required')">กรุณากรอก อีเมล์</div>
+                  <div *ngIf="email?.touched && email?.errors.email">กรุณากรอกเป็นรูปแบบอีเมลที่ถูกต้อง</div>
+                 </div>
+               </div>
               <div class="form-group">
-                 <label for="phone">ตำแหน่ง</label>
-                 <input type="text" ngModel="{{editEmployee?.jobTitle}}" name="jobTitle" class="form-control" id="jobTitle" placeholder="Job title">
-              </div>
+                 <label for="phone" class="dark:text-white">ตำแหน่ง</label>
+                 <input type="text" ngModel="{{editEmployee?.jobTitle}}" required #jobTitle ="ngModel" name="jobTitle" class="form-control" id="jobTitle" placeholder="Job title">
+                 <div class="alert-danger" *ngIf="jobTitle.invalid">
+                  <div *ngIf="jobTitle?.touched && jobTitle?.hasError('required')">กรุณากรอก ตำแหน่ง</div>
+                 </div>
+               </div>
               <div class="form-group">
-               <label for="phone">แผนก</label>
-               <input type="text" ngModel="{{editEmployee?.department}}" name="department" class="form-control" id="department" placeholder="department">
-            </div>
+               <label for="phone" class="dark:text-white">แผนก</label>
+               <input type="text" ngModel="{{editEmployee?.department}}" required #department ="ngModel" name="department" class="form-control" id="department" placeholder="department">
+               <div class="alert-danger" *ngIf="department.invalid">
+                  <div *ngIf="department?.touched && department?.hasError('required')">กรุณากรอก แผนก</div>
+                 </div>
+               </div>
               <div class="form-group">
-                 <label for="phone">เบอร์โทรศัพท์</label>
-                 <input type="text" ngModel="{{editEmployee?.phone}}" name="phone" class="form-control" id="phone" name="phone" placeholder="Phone">
-              </div>
+                 <label for="phone" class="dark:text-white">เบอร์โทรศัพท์</label>
+                 <input type="text" ngModel="{{editEmployee?.phone}}" required #phone ="ngModel" name="phone" class="form-control" id="phone" name="phone" placeholder="Phone" minlength="10" maxlength="10">
+                 <div class="alert-danger" *ngIf="phone.invalid">
+                  <div *ngIf="phone?.touched && phone?.hasError('required')">กรุณากรอก เบอร์โทรศัพท์</div>
+                  <div *ngIf="phone.errors.minlength">เบอร์โทรศัพท์ต้องมี 10 ตัว</div>
+                  <div *ngIf="phone.errors.maxlength">เบอร์โทรศัพท์ต้องไม่เกิน 10 ตัว</div>
+                 </div>
+               </div>
               <div class="form-group">
-                 <label for="phone">URL รูปภาพ Profile</label>
-                 <input type="text" ngModel="{{editEmployee?.imageUrl}}" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL">
-              </div>
+                 <label for="phone" class="dark:text-white">URL รูปภาพ Profile</label>
+                 <input type="text" ngModel="{{editEmployee?.imageUrl}}" required #imageUrl ="ngModel" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL">
+                 <div class="alert-danger" *ngIf="imageUrl.invalid">
+                  <div *ngIf="imageUrl?.touched && imageUrl?.hasError('required')">กรุณาใส่ลิ้งค์ URL รูปภาพ</div>
+                 </div>
+               </div>
               <div class="modal-footer">
                  <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">ปิด</button>
-                 <button (click)="onUpdateEmloyee(editForm.value)" data-dismiss="modal" class="btn btn-primary" >บันทึก</button>
+                 <button [disabled]="!editForm.valid" (click)="onUpdateEmloyee(editForm.value)" data-dismiss="modal" class="btn btn-primary" >บันทึก</button>
               </div>
            </form>
         </div>
@@ -165,15 +224,15 @@
 <!-- Delete Modal -->
 <div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-     <div class="modal-content">
+     <div class="modal-content dark:bg-gray-700 dark:border-gray-700">
         <div class="modal-header">
-           <h5 class="modal-title" id="deleteModelLabel">ลบรายชื่อพนักงาน</h5>
+           <h5 class="modal-titl dark:text-white" id="deleteModelLabel">ลบรายชื่อพนักงาน</h5>
            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
+           <span aria-hidden="true" class="dark:text-white">&times;</span>
            </button>
         </div>
         <div class="modal-body">
-           <p>คุณต้องการจะลบรายชื่อพนักงานนี้  {{deleteEmployee?.name}} ใช่หรือไม่ ?</p>
+           <br><p class="dark:text-white">คุณต้องการจะลบรายชื่อพนักงานนี้  {{deleteEmployee?.name}} ใช่หรือไม่ ?</p><br>
            <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
               <button (click)="onDeleteEmloyee(deleteEmployee?.id)" class="btn btn-danger" data-dismiss="modal">ตกลง</button>
@@ -192,4 +251,3 @@
 </div>
 </div>
 
-</body>

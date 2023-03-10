@@ -25,3 +25,8 @@
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+.otp_page{
+  margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+   background: linear-gradient( #67a0d5 , #ffffff) no-repeat 0 0 / cover; 
+}

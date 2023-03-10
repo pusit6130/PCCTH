@@ -5,74 +5,93 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-  <div class="ctp" id="main-container">
-    <div class="img_margin">
-      <img src="/assets/images/สพก2.png" style="width: 170px; height: 170px;">
-    </div>
-    <mat-card>
-      <mat-card-title>กรมสรรพากร</mat-card-title>
-      <mat-card-title>
-        <h3>กองบริหารการเสียภาษีทางอิเล็กทรอนิกส์</h3> 
-      </mat-card-title>
+  <div class="ctp regis_page w-full h-full bg-transparent p-6" id="main-container" align="center">
+    <br>
+    <mat-card class="p-12">
+      <div class="img_margin">
+        <img src="/assets/images/สพก2.png" style="width: 170px; height: 170px;">
+      </div>
+      <mat-card-title><strong><p class="subpixel-antialiased ...">สมัครสมาชิกกรมสรรพากร</p></strong></mat-card-title>
+      <strong><p class="text-2xl text-center subpixel-antialiased ...">กองบริหารการเสียภาษีทางอิเล็กทรอนิกส์</p></strong><br>
       <mat-card-content>
         <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-          <div class="form-group">
+          <div class="grid grid-cols-2 gap-4">
+          <div class="form-group" align="left">
             <label for="displayName">ชื่อผู้ใช้</label> <input type="text" class="form-control" name="userName" [(ngModel)]="form.userName" required minlength="3"
               maxlength="20" #displayName="ngModel" />
             <div class="alert-danger" *ngIf="f.submitted && displayName.invalid">
-              <div *ngIf="displayName.errors.required">Display Name is required</div>
-              <div *ngIf="displayName.errors.minlength">Display Name must be at least 3 characters</div>
-              <div *ngIf="displayName.errors.maxlength">Display Name must be at most 20 characters</div>
+              <div *ngIf="displayName.errors.required">กรุณากรอก ชื่อผู้ใช้</div>
+              <div *ngIf="displayName.errors.minlength">ชื่อที่ใช้แสดงต้องมีอักขระอย่างน้อย 3 ตัว</div>
+              <div *ngIf="displayName.errors.maxlength">ชื่อที่ใช้แสดงต้องมีอักขระไม่เกิน 20 ตัว</div>
             </div>
           </div>
-          <div class="form-group">
-            <label for="name">ชื่อ-นามสกุล</label> <input type="text" class="form-control" name="name" [(ngModel)]="form.name" required/>
+          <div class="form-group" align="left">
+            <label for="name">ชื่อ-นามสกุล</label> 
+            <input type="text" class="form-control" name="name" [(ngModel)]="form.name" required #name="ngModel"/>
+            <div class="alert-danger" *ngIf="f.submitted && name.invalid">
+              <div *ngIf="email.errors.required">กรุณากรอก ชื่อ-นามสกุล</div>
+            </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" align="left">
             <label for="email">อีเมล์</label> <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required email #email="ngModel" />
             <div class="alert-danger" *ngIf="f.submitted && email.invalid">
-              <div *ngIf="email.errors.required">Email is required</div>
-              <div *ngIf="email.errors.email">Email must be a valid email address</div>
+              <div *ngIf="email.errors.required">กรุณากรอก อีเมล์</div>
+              <div *ngIf="email.errors.email">อีเมลต้องเป็นรูปแบบอีเมลที่ถูกต้อง</div>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" align="left">
             <label for="password">รหัสผ่าน</label> <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6"
               #password="ngModel" />
             <div class="alert-danger" *ngIf="f.submitted && password.invalid">
-              <div *ngIf="password.errors.required">Password is required</div>
-              <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+              <div *ngIf="password.errors.required">กรุณากรอก รหัสผ่าน</div>
+              <div *ngIf="password.errors.minlength">รหัสผ่านต้องมีอย่างน้อย 6 ตัว</div>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" align="left">
             <label for="matchingPassword">ยืนยันรหัสผ่าน</label> <input type="password" class="form-control" name="matchingPassword" [(ngModel)]="form.matchingPassword"
               required minlength="6" #matchingPassword="ngModel" />
             <div class="alert-danger" *ngIf="f.submitted && matchingPassword.invalid">
-              <div *ngIf="matchingPassword.errors.required">Confirm Password is required</div>
-              <div *ngIf="matchingPassword.errors.minlength">Confirm Password must be at least 6 characters</div>
+              <div *ngIf="matchingPassword.errors.required">กรุณากรอกยืนยันรหัส</div>
+              <div *ngIf="matchingPassword.errors.minlength">รหัสผ่านต้องมีอย่างน้อย 6 ตัว</div>
             </div>
           </div>
-         <div class="form-group">
+         <div class="form-group" align="left">
             <label for="jobTitle">ตำแหน่ง</label>
-            <input type="text" ngModel name="jobTitle" class="form-control" id="jobTitle"  [(ngModel)]="form.jobTitle" required>
+            <input type="text" #jobTitle="ngModel" ngModel name="jobTitle" class="form-control" id="jobTitle"  [(ngModel)]="form.jobTitle" required>
+            <div class="alert-danger" *ngIf="f.submitted && jobTitle.invalid">
+              <div *ngIf="jobTitle.errors.required">กรุณากรอกตำแหน่ง</div>
+            </div>
          </div>
-         <div class="form-group">
+         <div class="form-group" align="left">
            <label for="department">แผนก</label>
-           <input type="text" ngModel name="department" class="form-control" id="department" [(ngModel)]="form.department" required>
+           <input type="text" #department="ngModel" ngModel name="department" class="form-control" id="department" [(ngModel)]="form.department" required>
+           <div class="alert-danger" *ngIf="f.submitted && department.invalid">
+            <div *ngIf="department.errors.required">กรุณากรอกแผนก</div>
+          </div>
         </div>
-         <div class="form-group">
+         <div class="form-group" align="left">
             <label for="phone">เบอร์โทรศัพท์</label>
-            <input type="text" ngModel name="phone" class="form-control" id="phone" [(ngModel)]="form.phone" required>
+            <input type="text" #phone="ngModel" ngModel name="phone" class="form-control" id="phone" [(ngModel)]="form.phone" required minlength="10" maxlength="10">
+            <div class="alert-danger" *ngIf="f.submitted && phone.invalid">
+              <div *ngIf="phone.errors.required">กรุณากรอกยืนยันรหัส</div>
+              <div *ngIf="phone.errors.minlength">เบอร์ต้องมี 10 ตัว</div>
+              <div *ngIf="phone.errors.maxlength">เบอร์ฃต้องไม่เกิน 10 ตัว</div>
+            </div>
          </div>
-         <div class="form-group">
+        </div>
+         <div class="form-group" align="left">
             <label for="imageUrl">URL รูปภาพ Profile</label>
-            <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" [(ngModel)]="form.imageUrl" required>
+            <input type="text" #imageUrl="ngModel" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" [(ngModel)]="form.imageUrl" required>
+            <div class="alert-danger" *ngIf="f.submitted && imageUrl.invalid">
+              <div *ngIf="imageUrl.errors.required">กรุณากรอก URL รูปภาพ </div>
+            </div>
          </div>
-          <div class="form-group form-check">
+          <div class="form-group form-check" align="left">
             <input type="checkbox" class="form-check-input" name="using2FA" [(ngModel)]="form.using2FA" #using2FA="ngModel" />
-            <label class="form-check-label" for="using2FA">ใช่ การยืนยันแบบสองชั้น</label>
+            <label class="form-check-label" for="using2FA">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ใช่ การยืนยันแบบสองชั้น</label>
           </div>
           <div class="form-group">
-            <button id="add-employee-form" class="btn btn-primary btn-block">สมัคร</button>
+            <button id="add-employee-form" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-6 px-auto w-full rounded-full">สมัครสมาชิก</button>
           </div>
           <div class="re_margin"><a href="/login" >เข้าสู่ระบบ</a></div> 
         </form>

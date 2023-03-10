@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark:bg-black">
 <head>
   <meta charset="utf-8">
   <title>pccsdmgrweb</title>
@@ -10,12 +10,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 </head>
-<body class="mat-typography">
-  <app-root></app-root>
+<script>
+  const userTheme = localStorage.getItem("theme");
+  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  if (userTheme === 'dark' || (!userTheme && systemTheme)) {
+  document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+
+  function OnThemeD(themeWeb){
+    if (themeWeb == 'dark') {
+        console.log("/////////dark//////////",themeWeb.value);
+        document.documentElement.classList.add('dark')
+        localStorage.setItem("theme","dark");
+
+    }else if(themeWeb == 'light'){
+        console.log("/////////ligth//////////",themeWeb.value);
+        document.documentElement.classList.remove('dark')
+        localStorage.setItem("theme","light");
+    }
+  }
+</script>
+<body class="dark:bg-gray-600">
+  <app-root></app-root>
 </body>
 </html>

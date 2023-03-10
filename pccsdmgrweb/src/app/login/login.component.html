@@ -1,3 +1,4 @@
+<html lang="en" class="login_page w-full h-full">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -5,30 +6,31 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-  <div class="ctp" id="main-container">
-    <div class="img_margin">
-      <img src="/assets/images/สพก2.png" style="width: 170px; height: 170px;">
-    </div>
-    <mat-card>
-      <mat-card-title>กรมสรรพากร</mat-card-title>
-      <mat-card-title>
-        <h3>กองบริหารการเสียภาษีทางอิเล็กทรอนิกส์</h3>
-      </mat-card-title>
+<body class="bg-transparent">
+  <br>
+  <div class="ctp mt-10 " id="main-container" align="center">
+    <mat-card class="shadow hover:shadow-lg">
+      <div class="img_margin mt-4">
+        <img class="w-auto h-64" src="/assets/images/สพก2.png">
+      </div>
+      <mat-card-title><strong><p class="subpixel-antialiased ...">เข้าสู่ระบบ กรมสรรพากร</p></strong></mat-card-title>
+    <strong><p class="text-2xl text-center subpixel-antialiased ...">กองบริหารการเสียภาษีทางอิเล็กทรอนิกส์</p></strong><br>
       <mat-card-content>
         <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate >
-          <div class="form-group">
+          <div class="form-group" align="left">
             <label for="userName">ชื่อผู้ใช้</label>
-            <input type="text" class="form-control" name="userName" placeholder="" [(ngModel)]="form.username" required #username="ngModel"/>
+            <input placeholder="Email address" type="text" class="form-control" name="userName" [(ngModel)]="form.username" required #username="ngModel"/>
             <div
               class="alert alert-danger"
               role="alert"
               *ngIf="username.errors && f.submitted">
-              Username is required!
+              กรุณากรอกอีเมล์ หรือ ชื่อผู้ใช้
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" align="left">
             <label for="password">รหัส</label>
             <input
+              placeholder="Password"
               type="password"
               class="form-control"
               name="password"
@@ -36,43 +38,62 @@
               required
               minlength="6"
               #password="ngModel"
-              placeholder=""
             />
             <div
               class="alert alert-danger"
               role="alert"
               *ngIf="password.errors && f.submitted"
             >
-              <div *ngIf="password.errors.required">Password is required</div>
+              <div *ngIf="password.errors.required">กรุณากรอกรหัสผ่าน</div>
               <div *ngIf="password.errors.minlength">
-                Password must be at least 6 characters
+                รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร
               </div>
             </div>
           </div>
           <div class="form-group">
-            <button class="btn btn-primary btn-block">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-60 rounded-full">
               เข้าสู่ระบบ
             </button>
           </div>
           <div class="form-group">
-            <p class="content-divider center mt-3">
-              <span>หรือ</span>
+            <p class="content-divider text-center mt-3">
+              <br>
+              <span></span>
             </p>
-            <p class="social-login text-center">
-              เข้าสู่ระบบ โดย:
-              <a href="" class="ml-2">
-                <img alt="Login with Google" src="/assets/images/google.png" class="btn-img">
-              </a>
-              <a href="">
-                <img alt="Login with Facebook" src="/assets/images/facebook.png" class="btn-img">
-              </a>
-              <a href="">
-                <img alt="Login with Github" src="/assets/images/github.png" class="btn-img">
-              </a>
-              <a href="">
-                <img alt="Login with Linkedin" src="/assets/images/linkedin.png" class="btn-img">
-              </a>
-            </p>
+            <div align="center">
+              <div class="icons_container">
+                <div class="icon facebook">
+                  <div class="tooltip">
+                      Facebook
+                  </div>
+                  <span><img src="/assets/images/facebook.png" style="width: 46px; height: 46px;"></span>
+                </div>
+                <div class="icon twitter">
+                  <div class="tooltip">
+                      Twitter
+                  </div>
+                  <span><img src="/assets/images/twitter.png" style="width: 46px; height: 46px;"></span>
+                </div>
+                <div class="icon instagram">
+                  <div class="tooltip">
+                      Instagram
+                  </div>
+                  <span><img src="/assets/images/instagram.png" style="width: 50px; height: 50px;"></span>
+                </div>
+                <div class="icon github">
+                  <div class="tooltip">
+                      Github
+                  </div>
+                  <span><img class="" src="/assets/images/github.png" ></span>
+                </div>
+                <div class="icon youtube">
+                  <div class="tooltip">
+                      YouTube
+                  </div>
+                  <span><img src="/assets/images/youtube.png" style="width: 46px; height: 46px;"></span>
+                </div>
+            </div>
+            </div>
           </div>
           <div class="re_margin"><a href="/register" (click)="toRegisterPage()">สมัครสมาชิก</a></div> 
           <div class="form-group">
@@ -94,5 +115,10 @@
         </form>
       </mat-card-content>
     </mat-card>
-</div>
+  </div>
+</body>
+<br>
+<br>
+<br>
+</html>
 

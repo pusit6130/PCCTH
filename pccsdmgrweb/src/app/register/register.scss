@@ -10,15 +10,20 @@
     justify-content: flex-end;
   }
   
+  .regis_page{
+    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+     background: linear-gradient( #67a0d5 , #ffffff) no-repeat 0 0 / cover; 
+  }
+
   .img_margin{
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
   }
   
-  .ctp{
-    margin-top: 10px;
-  }
+  // .ctp{
+  //   margin-top: 10px;
+  // }
   
   mat-card-title{
     display: flex;

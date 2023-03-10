@@ -49,8 +49,8 @@ export class TotpComponent implements OnInit {
 	this.currentUser = this.tokenStorage.getUser();
   // window.location.reload();
   // this.nextPage();
+  alert("เข้าสู่ระบบสำเร็จ ยินดีต้อนรับ");
   this.router.navigate(['../../home']);
-  
   }
 
   nextPage(): void{

@@ -73,6 +73,7 @@ export class LoginComponent implements OnInit{
     }
 
   reloadPage(): void {
+    alert("เข้าสู่ระบบสำเร็จ ยินดีต้อนรับ");
     this.router.navigate(['../../home']);
   }
 

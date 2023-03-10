@@ -4,59 +4,85 @@
   <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarColor02">
-   <form class="form-inline my-2 my-lg-0">
-      <input type="search" (ngModelChange)="searchNews(key.value)" #key="ngModel" ngModel
-       name="key" id="searchName" class="form-control mr-sm-2" placeholder="ค้นหาข่าว..." required>
-   </form>
+   <ul class="navbar-nav mr-auto">
+    <form class="form-inline my-2 my-lg-0">
+        <div class="flex justify-center">
+          <div class="mb-0 xl:w-96">
+             <br>
+            <div class="relative mb-4 flex w-full flex-wrap items-stretch">
+                <input type="search" (ngModelChange)="searchNews(key.value)" #key="ngModel" ngModel
+                name="key" id="searchName" class="form-control mr-sm-2 relative m-0 -mr-px block w-[1%] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-clip-padding px-3 py-1.5 text-base font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:text-neutral-200 dark:placeholder:text-neutral-200" 
+                placeholder="ค้นหาข่าว..." required>
+            </div>
+          </div>
+        </div>
+    </form>
+    </ul>
      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-           <a class="nav-link" (click)="toHomePage()">หน้าเเรก <span class="sr-only">(current)</span></a>
+        <li class="nav-item w-auto">
+           <a class="nav-link" (click)="toHomePage()">รายชื่อพนักงาน <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item active">
+        <!-- <li class="nav-item active">
           <a class="nav-link" (click)="openModalAddNews('add')">เพิ่มข่าว <span class="sr-only">(current)</span></a>
-       </li>
-        <li class="nav-item active">
-         <a class="nav-link" (click)=" toUploadPage()">ประกาศข่าวสาร <span class="sr-only">(current)</span></a>
-      </li>
+       </li> -->
+        <li class="nav-item active w-auto">
+           <a class="nav-link" (click)=" toUploadPage()">ประกาศข่าวสาร <span class="sr-only">(current)</span></a>
+        </li>
       <!-- <li class="nav-item active">
          <a class="nav-link" (click)="exportToExcel()">Export XLS <span class="sr-only">(current)</span></a>
       </li> -->
      </ul>
-     <ul class="navbar-nav mr-auto" >
-      <li class="nav-item active">
-        <a class="nav-link">{{getUsername}}&nbsp; &nbsp;</a>
-      </li>
-      <li class="nav-item active">
-         <a class="nav-link btn btn-danger" (click)="logout()">ออกจากระบบ <span class="sr-only">(current)</span></a>
+     <ul class="navbar-nav mr-auto w-auto" >
+        <li class="nav-item active">
+          <a class="nav-link">คุณ : {{getUsername}}&nbsp;&nbsp;</a>
+        </li>
+      &nbsp; &nbsp;
+      <li class="mr-12" align="center w-auto">
+        <button class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-2 rounded-full" (click)="logout()">
+          <img class="w-5 h-5" src="../assets/images/logout.png">
+        </button>
+        &nbsp;
+         <button class="bg-yellow-50 hover:bg-yellow-400 text-white font-bold py-2 px-2 rounded-full" id="themeWebL" value="light" onclick="OnThemeD(themeWebL.value)">
+           <img class="w-5 h-5" src="../assets/images/sun.png">
+         </button>
+         &nbsp;
+         <button class="bg-blue-50 hover:bg-blue-400 text-white font-bold py-2 px-2 rounded-full" id="themeWebD" value="dark" onclick="OnThemeD(themeWebD.value)">
+           <img class="w-5 h-5" src="../assets/images/moon.png">
+         </button>
       </li>
    </ul>
+   <br>
+   <br>
   </div>
 </nav>
 
 <div class="container" id="main-container">
-  <div class="panel-heading align-self-center">
-    <strong><h2>NEWS</h2></strong>
-  </div>
+  <div class="panel-heading align-self-center border-b-4 border-red-600">
+    <strong><h2 class="dark:text-white text-3xl">NEWS</h2></strong>
+</div>
+  <button class="bg-red-700 hover:bg-red-800 text-white font-bold px-4 py-2 ml-1 mt-2 mb-4 rounded inline-flex items-center" (click)="openModalAddNews('add')">
+    <i class="w-4 h-4 mr-2 text-white fa fa-newspaper-o" viewBox="0 0 20 20"></i>
+    <span (click)="openModalAddNews('add')">เพิ่มข่าว</span>
+ </button>
   <div class="row">
     <div *ngFor="let news of allnews" class="col-md-6 col-xl-3 ">
       <input type="hidden" #ntxtDate value="{{news?.news_date | date:'MM/dd/yyyy'}}"  name="ntxtDate" id="ntxtDate">
-
-       <div class="card m-b-30"> 
+       <div class="dark:bg-gray-700 card m-b-30 max-w-sm  rounded-lg shadow dark:border-gray-700"> 
             <img src="{{news?.news_imgeurl}}" class="img-fluid ">
-          <li class="list-group-item">
-            <h5>
-              <i class='far fa-calendar' style="color: black;"></i> 
+          <li class="list-group-item dark:bg-gray-700">
+            <h5 class="dark:text-white">
+              <i class='far fa-calendar text-black dark:text-white' ></i> 
               &nbsp;{{news?.news_date | date:'MM/dd/yyyy'}} 
               &nbsp;<a *ngIf="txtDate === ntxtDate.value"><span class="badge badge-danger">NEW</span></a>
             </h5>
-            <strong><h3 class="modal-title">{{news?.news_name}}</h3></strong>
+            <strong><h3 class="modal-title dark:text-white">{{news?.news_name}}</h3></strong>
           </li>
-          <li class="list-group-item">
-            <h5 class="ie11Support">{{news?.news_detail}}</h5>
+          <li class="list-group-item dark:bg-gray-700">
+            <p class="ie11Support dark:text-white">{{news?.news_detail}}</p>
           </li>
           <div class="card-body">
              <div class="float-right btn-group btn-group-sm">
-              <button class="btn btn-primary" (click)="openModalNewsDetail(news,'detail')">ดูรายละเอียด > </button>
+              <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-full" (click)="openModalNewsDetail(news,'detail')">ดูรายละเอียด > </button>
              </div>
           </div>
        </div>
@@ -67,32 +93,35 @@
 <!-- Open News Modal -->
 <div class="modal fade" id="detailNewsModal" tabindex="-1" role="dialog" aria-labelledby="detailNewsModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content" style="width: 125%;">
+    <div class="modal-content dark:bg-gray-700 dark:border-gray-700 w-auto">
 
         <div class="modal-header">
-          <h1 class="modal-title" id="detailNewsModal">รายละเอียดข่าว</h1>
+          <h1 class="modal-title dark:text-white" id="detailNewsModal">รายละเอียดข่าว</h1>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+            <span aria-hidden="true" class="dark:text-white">&times;</span>
+            </button> 
         </div>
         
         <div *ngIf="filenames?.length > 0">
+          <div align="center">
+            <br><strong><h5 class="dark:text-white" name="title_news" id="news_name">{{viewNews.news_name}}</h5></strong>
+          </div>
           <div class="modal-body">
             <form #editForm="ngForm">
               <div class="form-group">
                 <img src="{{viewNews.news_imgeurl}}" class="img-fluid"><br>
               </div>
               <div class="form-group">
-                <a name="date" id="date">{{viewNews.news_date | date:'MM/dd/yyyy'}}</a><br>
+                <p class="dark:text-white" name="date" id="date">{{viewNews.news_date | date:'MM/dd/yyyy'}}</p><br>
               </div>
               <div class="form-group">
-                <p name="name" id="name">{{viewNews.news_detail}}</p>
+                <p class="dark:text-white" name="name" id="name">{{viewNews.news_detail}}</p>
               </div>
               <div class="form-group" align="center">
-                <strong><p name="name" id="name">Download ไฟล์</p></strong>
+                <strong><p name="name" id="name" class="dark:text-white">Download ไฟล์</p></strong>
                 </div>
                 <div *ngFor="let filename of filenames" class="list-group">
-                  <a (click)="onDownloadFile(filename)" class="list-group-item list-group-item-success" style="cursor: pointer;">
+                  <a (click)="onDownloadFile(filename)" class="list-group-item list-group-item-success dark:text-white" style="cursor: pointer;">
                     {{ filename }}
                     <a class="alert-success float-right"><i class="fa fa-cloud-download" style="color: #000;"></i></a>
                   </a><br>
@@ -107,35 +136,43 @@
     </div>
 </div>
 
-        
-
 <!-- Add News Modal -->
 <div class="modal fade" id="addNewsModal" tabindex="-1" role="dialog" aria-labelledby="addNewsModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content dark:bg-gray-700 dark:border-gray-700" >
        <div class="modal-header">
-          <h1 class="modal-title" id="addNewsModalLabel">เพิ่มข่าว</h1>
+          <h1 class="modal-title dark:text-white" id="addNewsModalLabel">เพิ่มข่าว</h1>
         </div>
        <div class="modal-body">
-        <form #addNewsForm="ngForm">
-
+        <form #addNewsForm="ngForm" name="addNewsForm" *ngIf="!isSuccessful" (ngSubmit)="addNewsForm.form.valid">
+            
         <div class="form-group">
-            <label for="news_name">หัวข้อข่าว</label>
-            <input type="text" ngModel name="news_name" class="form-control" id="news_name" placeholder="ใส่หัวข้อข่าว" required>
-         </div><div class="form-group">
-          <label for="news_date">วันที่</label>
+            <label for="news_name" class="dark:text-white">หัวข้อข่าว</label>
+            <input type="text" ngModel name="news_name" class="form-control" id="news_name" placeholder="ใส่หัวข้อข่าว" required #news_name ="ngModel">
+            <div class="alert-danger" *ngIf="news_name.invalid">
+              <div *ngIf="news_name?.touched && news_name?.hasError('required')">กรุณากรอก หัวข้อข่าว</div>
+            </div>
+          </div>
+          <div class="form-group">
+          <label for="news_date" class="dark:text-white">วันที่</label>
           <input type="text" ngModel name="news_date" class="form-control" id="news_date" placeholder="{{today | date:'MM/dd/yyyy'}}" disabled="false">
         </div>
          <div class="form-group">
-          <label for="news_detail">รายละเอียดข่าว</label>
-          <textarea  ngModel name="news_detail" class="form-control" id="news_detail" placeholder="ใส่รายละเอียดข่าว" rows="4" required></textarea>
+          <label for="news_detail" class="dark:text-white">รายละเอียดข่าว</label>
+          <textarea  required #news_detail ="ngModel" ngModel name="news_detail" class="form-control" id="news_detail" placeholder="ใส่รายละเอียดข่าว" rows="4"></textarea>
+          <div class="alert-danger" *ngIf="news_detail.invalid">
+            <div *ngIf="news_detail?.touched && news_detail?.hasError('required')">กรุณากรอก รายละเอียดข่าว</div>
+          </div>
         </div>
         <div class="form-group">
-          <label for="news_imgeurl">URL รูปภาพข่าว</label>
-          <input type="text" ngModel name="news_imgeurl" class="form-control" id="news_imgeurl" placeholder="Image URL" required>
-       </div>
+          <label for="news_imgeurl" class="dark:text-white">URL รูปภาพข่าว</label>
+          <input type="text" required #news_imgeurl ="ngModel" ngModel name="news_imgeurl" class="form-control" id="news_imgeurl" placeholder="Image URL" required>
+          <div class="alert-danger" *ngIf="news_imgeurl.invalid">
+            <div *ngIf="news_imgeurl?.touched && news_imgeurl?.hasError('required')">กรุณาใส่ URL รูปภาพข่าว</div>
+          </div>
+        </div>
 
-          <label>กรุณาเลือกไฟล์ที่ต้องการ Upload</label>
+          <label class="dark:text-white">กรุณาเลือกไฟล์ที่ต้องการ Upload</label>
             <div *ngIf="fileStatus.status==='progress'">
               <div class="progress">
                 <div [style.width.%]="fileStatus.percent" class="progress-bar progress-bar-animated bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
@@ -147,7 +184,7 @@
               <div *ngFor="let filename of nameoffile" class="list-group">
                 <a (click)="onDownloadFile(filename)" class="list-group-item list-group-item-success" style="cursor: pointer;">
                   {{ filename }}
-                  <a class="alert-success float-right">Download ไฟล์</a>
+                  <a class="alert-success float-right dark:text-white">Download ไฟล์</a>
                 </a><br>
               </div>
             </div>
@@ -162,7 +199,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal" >ปิด</button>
-                  <button type="button" id="add-employee-form" class="btn btn-primary" data-dismiss="modal" (click)="onSubmitNews(addNewsForm.value)">อัปโหลด</button>
+                  <button [disabled]="!addNewsForm.valid"  type="button" id="add-employee-form" class="btn btn-primary" data-dismiss="modal" (click)="onSubmitNews(addNewsForm.value)">อัปโหลด</button>
                 </div>
               </fieldset>
             </form>
